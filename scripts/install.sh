@@ -13,9 +13,9 @@ cd /tmp \
     && cp -n ./danted.conf /etc
 
 # clean up
-apt-get autoremove \
-    && apt-get auto-clean \
-    && apt-get clean \
+apt-get -y autoremove \
+    && apt-get -y autoclean \
+    && apt-get -y clean \
     && rm -fr /tmp/* /var/tmp/* /var/lib/apt/lists/*
 
 # chmod scripts
