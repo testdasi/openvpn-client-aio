@@ -5,19 +5,26 @@ DNS_PORT=53
 
 ### Dynamically determine OPENVPN_PORT based on config file ###
 #OPENVPN_PORT=1198
+echo ''
+echo '[info] Determine openvpn port from config file'
 OPENVPN_PORT=$(grep -m 1 "remote " /etc/openvpn/openvpn.ovpn)
 OPENVPN_PORT=${OPENVPN_PORT:(-5)}
 
 ### Adjusting config with actual port ###
+echo ''
 echo '[info] Fixing configs'
-DANTE_PORT=1080
+DANTE_PORT=${SOCKS_PROXY_PORT}
 sed -i "s|internal: eth0 port=1080|internal: eth0 port=$DANTE_PORT|g" '/etc/danted.conf'
-TINYPROXY_PORT=8080
+echo '[info] danted fixed'
+TINYPROXY_PORT=${HTTP_PROXY_PORT}
 sed -i "s|Port 8080|Port $TINYPROXY_PORT|g" '/etc/tinyproxy/tinyproxy.conf'
-TORSOCKS_PORT=9050
+echo '[info] tinyproxy fixed'
+TORSOCKS_PORT=${TOR_SOCKS_PORT}
 sed -i "s|SOCKSPort 0\.0\.0\.0:9050|SOCKSPort 0\.0\.0\.0:$TORSOCKS_PORT|g" '/etc/tor/torrc'
-PRIVOXY_PORT=8118
+echo '[info] torsocks fixed'
+PRIVOXY_PORT=${TOR_HTTP_PORT}
 sed -i "s|listen-address 0\.0\.0\.0:8118|listen-address 0\.0\.0\.0:$PRIVOXY_PORT|g" '/etc/privoxy/config'
+echo '[info] privoxy fixed'
 echo '[info] All configs fixed'
 
 ### Stubby DNS-over-TLS ###
