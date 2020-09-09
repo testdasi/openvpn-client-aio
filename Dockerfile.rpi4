@@ -1,5 +1,10 @@
 FROM testdasi/openvpn-client-aio-base:latest-rpi4
 
+ARG SOCKS_PROXY_PORT=9118
+ARG HTTP_PROXY_PORT=8118
+ARG TOR_SOCKS_PORT=9119
+ARG TOR_HTTP_PORT=8119
+
 VOLUME ["/etc/openvpn"]
 
 EXPOSE 53/tcp 53/udp ${SOCKS_PROXY_PORT}/tcp ${HTTP_PROXY_PORT}/tcp ${TOR_SOCKS_PORT}/tcp ${TOR_HTTP_PORT}/tcp
