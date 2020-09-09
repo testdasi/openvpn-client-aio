@@ -26,12 +26,6 @@ iptables -A INPUT -i eth0 -p udp --dport $DNS_PORT -j ACCEPT
 iptables -A OUTPUT -o eth0 -p tcp --sport $DNS_PORT -j ACCEPT
 iptables -A OUTPUT -o eth0 -p udp --sport $DNS_PORT -j ACCEPT
 
-echo '[info] Unblock DoT outbound'
-iptables -A INPUT -p tcp --sport $DOT_PORT -j ACCEPT
-iptables -A INPUT -p udp --sport $DOT_PORT -j ACCEPT
-iptables -A OUTPUT -p tcp --dport $DOT_PORT -j ACCEPT
-iptables -A OUTPUT -p udp --dport $DOT_PORT -j ACCEPT
-
 echo '[info] Unblock dante in bound from eth0'
 iptables -A INPUT -i eth0 -p tcp --dport $DANTE_PORT -m state --state NEW,ESTABLISHED -j ACCEPT
 iptables -A OUTPUT -o eth0 -p tcp --sport $DANTE_PORT -m state --state ESTABLISHED -j ACCEPT
