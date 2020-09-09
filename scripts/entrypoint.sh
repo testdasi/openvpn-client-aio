@@ -1,6 +1,10 @@
 #!/bin/bash
 
-OPENVPN_PORT=1198
+### Dynamically determine OPENVPN_PORT based on config file ###
+#OPENVPN_PORT=1198
+OPENVPN_PORT=$(grep -m 1 "remote " /etc/openvpn/openvpn.ovpn)
+OPENVPN_PORT=${OPENVPN_PORT:(-5)}
+
 DNS_PORT=53
 DANTE_PORT=1080
 TINYPROXY_PORT=8080
@@ -24,7 +28,7 @@ echo "[info] Quick block test. Expected result is time out. Actual result is $ip
 
 ### OpenVPN ###
 echo ''
-echo '[info] OpenVPN'
+echo "[info] Setting up OpenVPN tunnel"
 source /openvpn.sh
 echo '[info] Connected!'
 
