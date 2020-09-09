@@ -24,6 +24,7 @@ sed -i "s|SOCKSPort 0\.0\.0\.0:9050|SOCKSPort 0\.0\.0\.0:$TORSOCKS_PORT|g" '/etc
 echo '[info] torsocks fixed'
 PRIVOXY_PORT=${TOR_HTTP_PORT}
 sed -i "s|listen-address 0\.0\.0\.0:8118|listen-address 0\.0\.0\.0:$PRIVOXY_PORT|g" '/etc/privoxy/config'
+sed -i "s|forward-socks5t \/ localhost:9050|forward-socks5t \/ localhost:$TORSOCKS_PORT|g" '/etc/privoxy/config'
 echo '[info] privoxy fixed'
 echo '[info] All configs fixed'
 
