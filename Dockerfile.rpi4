@@ -1,4 +1,4 @@
-FROM testdasi/openvpn-client-aio-base:latest-amd64
+FROM testdasi/openvpn-client-aio-base:latest-rpi4
 
 VOLUME ["/etc/openvpn"]
 
