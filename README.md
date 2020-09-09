@@ -2,7 +2,7 @@
 An "all-in-one" docker for all your private browsing needs. Built for the Raspberry Pi.
 
 ## PULL THE RIGHT TAG!
-* For linux/amd64 (e.g. Unraid) -> pull testdasi/openvpn-client-aio:latest / testdasi/openvpn-client-aio:latest-amd64
+* For linux/amd64 (e.g. Unraid) -> pull testdasi/openvpn-client-aio:latest-amd64
 * For linux/arm/v7 (e.g. Raspberry Pi4) -> pull testdasi/openvpn-client-aio:latest-rpi4 
 
 ## High-level instructions
