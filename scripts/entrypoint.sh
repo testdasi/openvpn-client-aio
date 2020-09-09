@@ -1,5 +1,10 @@
 #!/bin/bash
 
+### Dynamically determine OpenVPN port ###
+echo '[info] Determine openvpn port from config file'
+OPENVPN_PORT=$(grep -m 1 "remote " /etc/openvpn/openvpn.ovpn)
+OPENVPN_PORT=${OPENVPN_PORT:(-5)}
+
 ### Fixing config files ###
 echo ''
 echo '[info] Fixing configs'
@@ -25,9 +30,6 @@ echo "[info] Quick block test. Expected result is time out. Actual result is $ip
 ### OpenVPN ###
 echo ''
 echo "[info] Setting up OpenVPN tunnel"
-echo '[info] Determine openvpn port from config file'
-OPENVPN_PORT=$(grep -m 1 "remote " /etc/openvpn/openvpn.ovpn)
-OPENVPN_PORT=${OPENVPN_PORT:(-5)}
 source /openvpn.sh
 echo '[info] Done'
 
