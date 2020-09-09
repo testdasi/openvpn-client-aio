@@ -14,6 +14,14 @@ stubby -g -C /etc/stubby/stubby.yml
 ipnaked=$(dig +short myip.opendns.com @208.67.222.222)
 echo "[warn] Your ISP public IP is $ipnaked"
 
+### IPtable ###
+echo ''
+echo '[info] Set up IP tables'
+source /iptables.sh
+echo '[info] All rules created'
+ipttest=$(dig +short +time=5 +tries=1 myip.opendns.com @208.67.222.222)
+echo "[info] Quick block test. Expected result is time out. Actual result is $ipttest"
+
 ### OpenVPN ###
 echo ''
 echo "[info] Setting up OpenVPN tunnel"
@@ -22,15 +30,6 @@ OPENVPN_PORT=$(grep -m 1 "remote " /etc/openvpn/openvpn.ovpn)
 OPENVPN_PORT=${OPENVPN_PORT:(-5)}
 source /openvpn.sh
 echo '[info] Done'
-
-### IPtable ###
-echo ''
-echo '[info] Set up IP tables'
-source /iptables.sh
-echo '[info] All rules created'
-## IPtable block test for testing purposes only ##
-#ipttest=$(dig +short +time=5 +tries=1 myip.opendns.com @208.67.222.222)
-#echo "[info] Quick block test. Expected result is time out. Actual result is $ipttest"
 
 ### Dante SOCKS proxy to VPN ###
 echo ''
