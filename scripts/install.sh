@@ -10,7 +10,7 @@ cd /tmp \
     && cp -n ./torrc /etc/tor/ \
     && mkdir -p /etc/privoxy \
     && cp -n ./privoxy /etc/privoxy/config \
-    && cp -n ./danted.conf /etc
+    && cp -n ./danted.conf /etc/
 
 # clean up
 apt-get -y autoremove \
