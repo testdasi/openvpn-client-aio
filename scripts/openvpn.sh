@@ -20,13 +20,20 @@ echo "[info] Your VPN public IP is $iphiden"
 
 echo "[info] Change DNS servers to ${DNS_SERVERS}"
 # split comma seperated string into list from DNS_SERVERS env variable
-IFS=',' read -ra name_server_list <<< "${DNS_SERVERS}"
+IFS=',' read -ra dns_server_list <<< "${DNS_SERVERS}"
 # remove existing dns, docker injects dns from host and isp dns can block/hijack
 > /etc/resolv.conf
 # process name servers in the list
-for name_server_item in "${name_server_list[@]}"; do
-	# strip whitespace from start and end of name_server_item
-	name_server_item=$(echo "${name_server_item}" | sed -e 's~^[ \t]*~~;s~[ \t]*$~~')
-	echo "[info] Adding ${name_server_item} to /etc/resolv.conf"
-	echo "nameserver ${name_server_item}" >> /etc/resolv.conf
+for dns_server_item in "${dns_server_list[@]}"; do
+    # strip whitespace from start and end of dns_server_item
+    dns_server_item=$(echo "${dns_server_item}" | sed -e 's~^[ \t]*~~;s~[ \t]*$~~')
+    
+    echo "[info] Adding ${dns_server_item} to /etc/resolv.conf"
+    echo "nameserver ${dns_server_item}" >> /etc/resolv.conf
+    
+    echo "[info] Allowing DNS lookups (tcp, udp port 53) to server '${dns_server_item}'"
+    iptables -A OUTPUT -p udp -d ${dns_server_item} --dport 53 -m state --state NEW,ESTABLISHED -j ACCEPT
+    iptables -A INPUT  -p udp -s ${dns_server_item} --sport 53 -m state --state ESTABLISHED     -j ACCEPT
+    iptables -A OUTPUT -p tcp -d ${dns_server_item} --dport 53 -m state --state NEW,ESTABLISHED -j ACCEPT
+    iptables -A INPUT  -p tcp -s ${dns_server_item} --sport 53 -m state --state ESTABLISHED     -j ACCEPT
 done
