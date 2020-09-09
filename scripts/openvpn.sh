@@ -18,3 +18,15 @@ do
 done
 echo "[info] Your VPN public IP is $iphiden"
 
+echo "[info] Change DNS servers to ${DNS_SERVERS}"
+# split comma seperated string into list from DNS_SERVERS env variable
+IFS=',' read -ra name_server_list <<< "${DNS_SERVERS}"
+# remove existing dns, docker injects dns from host and isp dns can block/hijack
+> /etc/resolv.conf
+# process name servers in the list
+for name_server_item in "${name_server_list[@]}"; do
+	# strip whitespace from start and end of name_server_item
+	name_server_item=$(echo "${name_server_item}" | sed -e 's~^[ \t]*~~;s~[ \t]*$~~')
+	echo "[info] Adding ${name_server_item} to /etc/resolv.conf"
+	echo "nameserver ${name_server_item}" >> /etc/resolv.conf
+done
