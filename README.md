@@ -1,5 +1,5 @@
-# openvpn-client-aio-arm
-An "all-in-one" docker for all your private browsing needs. Built for the Raspberry Pi.
+# openvpn-client-aio
+An "all-in-one" docker for all your private browsing needs.
 
 ## PULL THE RIGHT TAG!
 * For linux/amd64 (e.g. Unraid) -> pull testdasi/openvpn-client-aio:latest-amd64
