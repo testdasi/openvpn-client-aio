@@ -22,6 +22,10 @@ echo "[info] Unblock $ETH0_NET"
 iptables -A INPUT -s $ETH0_NET -d $ETH0_NET -j ACCEPT
 iptables -A OUTPUT -s $ETH0_NET -d $ETH0_NET -j ACCEPT
 
+echo "[info] Unblock $HOST_NETWORK"
+iptables -A INPUT -s ${HOST_NETWORK} -j ACCEPT
+iptables -A OUTPUT -d ${HOST_NETWORK} -j ACCEPT
+
 echo "[info] Unblock traffic between $ETH0_NET and host"
 iptables -A INPUT -s ${HOST_NETWORK} -d $ETH0_NET -i eth0 -p tcp -j ACCEPT
 iptables -A OUTPUT -s $ETH0_NET -d ${HOST_NETWORK} -o eth0 -p tcp -j ACCEPT
