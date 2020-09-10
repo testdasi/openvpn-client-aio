@@ -1,0 +1,35 @@
+# Translated by iptables-restore-translate v1.8.2 on Thu Sep 10 13:48:46 2020
+add table ip filter
+add chain ip filter INPUT { type filter hook input priority 0; policy drop; }
+add chain ip filter OUTPUT { type filter hook output priority 0; policy drop; }
+add chain ip filter FORWARD { type filter hook forward priority 0; policy accept; }
+add rule ip filter INPUT iifname "lo" counter accept
+add rule ip filter INPUT iifname "tun0" counter accept
+add rule ip filter INPUT ip saddr 172.17.0.0/16 ip daddr 172.17.0.0/16 counter accept
+add rule ip filter INPUT iifname "eth0" ip protocol tcp ip saddr 10.132.6.0/23 ip daddr 172.17.0.0/16 counter accept
+add rule ip filter INPUT ip protocol icmp ct state related,established  counter accept
+add rule ip filter INPUT iifname "eth0" tcp dport 53 ct state new,established  counter accept
+add rule ip filter INPUT iifname "eth0" udp dport 53 ct state new,established  counter accept
+add rule ip filter INPUT iifname "eth0" tcp dport 9118 ct state new,established  counter accept
+add rule ip filter INPUT iifname "eth0" tcp dport 8118 ct state new,established  counter accept
+add rule ip filter INPUT iifname "eth0" tcp dport 9119 ct state new,established  counter accept
+add rule ip filter INPUT iifname "eth0" tcp dport 8119 ct state new,established  counter accept
+add rule ip filter INPUT ip saddr 10.132.6.90 udp sport 53 ct state established  counter accept
+add rule ip filter INPUT ip saddr 10.132.6.90 tcp sport 53 ct state established  counter accept
+add rule ip filter INPUT udp sport 1197 counter accept
+add rule ip filter OUTPUT oifname "lo" counter accept
+add rule ip filter OUTPUT oifname "tun0" counter accept
+add rule ip filter OUTPUT ip saddr 172.17.0.0/16 ip daddr 172.17.0.0/16 counter accept
+add rule ip filter OUTPUT oifname "eth0" ip protocol tcp ip saddr 172.17.0.0/16 ip daddr 10.132.6.0/23 counter accept
+add rule ip filter OUTPUT ip protocol icmp ct state new,related,established  counter accept
+add rule ip filter OUTPUT oifname "eth0" tcp sport 53 ct state established  counter accept
+add rule ip filter OUTPUT oifname "eth0" udp sport 53 ct state established  counter accept
+add rule ip filter OUTPUT oifname "eth0" tcp sport 9118 ct state established  counter accept
+add rule ip filter OUTPUT oifname "eth0" ct state related,established  counter accept
+add rule ip filter OUTPUT oifname "eth0" tcp sport 8118 ct state established  counter accept
+add rule ip filter OUTPUT oifname "eth0" tcp sport 9119 ct state established  counter accept
+add rule ip filter OUTPUT oifname "eth0" tcp sport 8119 ct state established  counter accept
+add rule ip filter OUTPUT ip daddr 10.132.6.90 udp dport 53 ct state new,established  counter accept
+add rule ip filter OUTPUT ip daddr 10.132.6.90 tcp dport 53 ct state new,established  counter accept
+add rule ip filter OUTPUT udp dport 1197 counter accept
+# Completed on Thu Sep 10 13:48:46 2020
