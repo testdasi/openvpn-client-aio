@@ -18,7 +18,7 @@ stubby -g -C /etc/stubby/stubby.yml
 ipnaked=$(dig +short myip.opendns.com @208.67.222.222)
 echo "[warn] Your ISP public IP is $ipnaked"
 
-### IPtable ###
+### IPtables ###
 echo ''
 echo '[info] Set up iptables rules'
 source /iptables.sh
