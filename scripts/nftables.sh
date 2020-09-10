@@ -1,21 +1,22 @@
 #!/bin/bash
 
 ### Clean existing nftable rules ###
-FAMILIES="ip ip6 arp bridge"
-for FAMILY in $FAMILIES; do
-    TABLES=$($nft list tables $FAMILY | grep "^table\s" | cut -d' ' -f2)
-    for TABLE in $TABLES; do
-        CHAINS=$($nft list table $FAMILY $TABLE | grep "^\schain\s" | cut -d' ' -f2)
-        for CHAIN in $CHAINS; do
-            echo "[info] Flushing chain: $FAMILY->$TABLE->$CHAIN"
-            $nft flush chain $FAMILY $TABLE $CHAIN
-            $nft delete chain $FAMILY $TABLE $CHAIN
-        done
-        echo "[info] Flushing table: $FAMILY->$TABLE"
-        $nft flush table $FAMILY $TABLE
-        $nft delete table $FAMILY $TABLE
-    done
-done
+#FAMILIES="ip ip6 arp bridge"
+#for FAMILY in $FAMILIES; do
+#    TABLES=$($nft list tables $FAMILY | grep "^table\s" | cut -d' ' -f2)
+#    for TABLE in $TABLES; do
+#        CHAINS=$($nft list table $FAMILY $TABLE | grep "^\schain\s" | cut -d' ' -f2)
+#        for CHAIN in $CHAINS; do
+#            echo "[info] Flushing chain: $FAMILY->$TABLE->$CHAIN"
+#            $nft flush chain $FAMILY $TABLE $CHAIN
+#            $nft delete chain $FAMILY $TABLE $CHAIN
+#        done
+#        echo "[info] Flushing table: $FAMILY->$TABLE"
+#        $nft flush table $FAMILY $TABLE
+#        $nft delete table $FAMILY $TABLE
+#    done
+#done
+nft flush ruleset
 
 ### Editing ruleset ###
 echo '[info] Editing ruleset'
