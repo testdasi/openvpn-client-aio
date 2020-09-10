@@ -34,9 +34,3 @@ sed -i "s|_PRIVOXY_PORT_|$PRIVOXY_PORT|g" '/nftables.rules'
 echo '[info] Apply rules'
 nft -fe /nftables.rules
 rm /nftables.rules
-
-### DNS tables ###
-nft add table ip dns
-nft add chain ip dns INPUT { type filter hook input priority 1; policy drop; }
-nft add chain ip dns OUTPUT { type filter hook output priority 1; policy drop; }
-nft add chain ip dns FORWARD { type filter hook forward priority 1; policy drop; }
