@@ -55,8 +55,8 @@ for dns_server_item in "${dns_server_list[@]}"; do
     #iptables -A INPUT  -p udp -s ${dns_server_item} --sport 53 -m state --state ESTABLISHED     -j ACCEPT
     #iptables -A OUTPUT -p tcp -d ${dns_server_item} --dport 53 -m state --state NEW,ESTABLISHED -j ACCEPT
     #iptables -A INPUT  -p tcp -s ${dns_server_item} --sport 53 -m state --state ESTABLISHED     -j ACCEPT
-    nft add rule ip filter INPUT ip saddr ${dns_server_item} udp sport 53 ct state established  counter accept
-    nft add rule ip filter INPUT ip saddr ${dns_server_item} tcp sport 53 ct state established  counter accept
-    nft add rule ip filter OUTPUT ip daddr ${dns_server_item} udp dport 53 ct state new,established  counter accept
-    nft add rule ip filter OUTPUT ip daddr ${dns_server_item} tcp dport 53 ct state new,established  counter accept
+    nft add rule ip filter INPUT ip saddr ${dns_server_item} udp sport 53 counter accept
+    nft add rule ip filter INPUT ip saddr ${dns_server_item} tcp sport 53 counter accept
+    nft add rule ip filter OUTPUT ip daddr ${dns_server_item} udp dport 53 counter accept
+    nft add rule ip filter OUTPUT ip daddr ${dns_server_item} tcp dport 53 counter accept
 done
