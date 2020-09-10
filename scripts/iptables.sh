@@ -4,6 +4,8 @@ echo '[info] Block everything (unless unblock explicitly)'
 iptables -P INPUT DROP
 #iptables -P FORWARD DROP
 iptables -P OUTPUT DROP
+
+echo '[info] Block legacy iptables'
 iptables-legacy -P INPUT DROP
 iptables-legacy -P FORWARD DROP
 iptables-legacy -P OUTPUT DROP
