@@ -25,7 +25,7 @@ echo '[info] Unblock icpm outgoing (pings)'
 iptables -A INPUT  -p icmp -m state --state ESTABLISHED,RELATED     -j ACCEPT
 iptables -A OUTPUT -p icmp -m state --state NEW,ESTABLISHED,RELATED -j ACCEPT
 
-echo "[info] Unblock OpenVPN outgoing on $OPENVPN_PROTO$OPENVPN_PORT"
+echo "[info] Unblock OpenVPN outgoing on $OPENVPN_PROTO $OPENVPN_PORT"
 iptables -A INPUT  -p $OPENVPN_PROTO --sport $OPENVPN_PORT -m state --state ESTABLISHED     -j ACCEPT
 iptables -A OUTPUT -p $OPENVPN_PROTO --dport $OPENVPN_PORT -m state --state NEW,ESTABLISHED -j ACCEPT
 
