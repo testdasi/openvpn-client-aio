@@ -4,8 +4,8 @@ add chain ip filter OUTPUT { type filter hook output priority 0; policy drop; }
 add chain ip filter FORWARD { type filter hook forward priority 0; policy accept; }
 add rule ip filter INPUT iifname "lo" counter accept
 add rule ip filter INPUT iifname "tun0" counter accept
-add rule ip filter INPUT ip saddr _ETH0_NET_ ip daddr _ETH0_NET_ counter accept
-add rule ip filter INPUT iifname "eth0" ip protocol tcp ip saddr _HOST_NETWORK_ ip daddr _ETH0_NET_ counter accept
+add rule ip filter INPUT ip saddr _HOST_NETWORK_ ip daddr _ETH0_NET_ counter accept
+add rule ip filter INPUT iifname "eth0" ip protocol tcp ip saddr _ETH0_NET_ ip daddr _ETH0_NET_ counter accept
 add rule ip filter INPUT ip protocol icmp counter accept
 add rule ip filter INPUT _OPENVPN_PROTO_ sport _OPENVPN_PORT_ counter accept
 add rule ip filter INPUT iifname "eth0" tcp dport _DNS_PORT_ counter accept
@@ -16,8 +16,8 @@ add rule ip filter INPUT iifname "eth0" tcp dport _TORSOCKS_PORT_ counter accept
 add rule ip filter INPUT iifname "eth0" tcp dport _PRIVOXY_PORT_ counter accept
 add rule ip filter OUTPUT oifname "lo" counter accept
 add rule ip filter OUTPUT oifname "tun0" counter accept
-add rule ip filter OUTPUT ip saddr _ETH0_NET_ ip daddr _ETH0_NET_ counter accept
-add rule ip filter OUTPUT oifname "eth0" ip protocol tcp ip saddr _ETH0_NET_ ip daddr _HOST_NETWORK_ counter accept
+add rule ip filter OUTPUT ip saddr _ETH0_NET_ ip daddr _HOST_NETWORK_ counter accept
+add rule ip filter OUTPUT oifname "eth0" ip protocol tcp ip saddr _ETH0_NET_ ip daddr _ETH0_NET_ counter accept
 add rule ip filter OUTPUT ip protocol icmp counter accept
 add rule ip filter OUTPUT _OPENVPN_PROTO_ dport _OPENVPN_PORT_ counter accept
 add rule ip filter OUTPUT oifname "eth0" tcp sport _DNS_PORT_ counter accept
