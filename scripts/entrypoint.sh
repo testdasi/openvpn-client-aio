@@ -20,16 +20,16 @@ ipnaked=$(dig +short myip.opendns.com @208.67.222.222)
 echo "[warn] Your ISP public IP is $ipnaked"
 
 ### IPtables ###
-#echo ''
-#echo '[info] Set up iptables rules'
-#source /iptables.sh
-#echo '[info] All rules created'
+echo ''
+echo '[info] Set up iptables rules'
+source /iptables.sh
+echo '[info] All rules created'
 
 ### nftables ###
-echo ''
-echo '[info] Set up nftables rules'
-source /nftables.sh
-echo '[info] All rules created'
+#echo ''
+#echo '[info] Set up nftables rules'
+#source /nftables.sh
+#echo '[info] All rules created'
 
 ### Quick block test ####
 echo ''
