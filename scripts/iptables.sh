@@ -5,11 +5,6 @@ iptables -P INPUT DROP
 #iptables -P FORWARD DROP
 iptables -P OUTPUT DROP
 
-echo '[info] Block legacy iptables'
-iptables-legacy -P INPUT DROP
-iptables-legacy -P FORWARD DROP
-iptables-legacy -P OUTPUT DROP
-
 echo '[info] Unblock loopback'
 iptables -A INPUT -i lo -j ACCEPT
 iptables -A OUTPUT -o lo -j ACCEPT
