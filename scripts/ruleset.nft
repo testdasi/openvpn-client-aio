@@ -7,25 +7,24 @@ add rule ip filter INPUT iifname "tun0" counter accept
 add rule ip filter INPUT ip saddr _ETH0_NET_ ip daddr _ETH0_NET_ counter accept
 add rule ip filter INPUT ip saddr _HOST_NETWORK_ counter accept
 add rule ip filter INPUT iifname "eth0" ip protocol tcp ip saddr _HOST_NETWORK_ ip daddr _ETH0_NET_ counter accept
-add rule ip filter INPUT ip protocol icmp ct state related,established  counter accept
+add rule ip filter INPUT ip protocol icmp ct state related,established counter accept
 add rule ip filter INPUT _OPENVPN_PROTO_ sport _OPENVPN_PORT_ counter accept
-add rule ip filter INPUT iifname "eth0" tcp dport _DNS_PORT_ ct state new,established  counter accept
-add rule ip filter INPUT iifname "eth0" udp dport _DNS_PORT_ ct state new,established  counter accept
-add rule ip filter INPUT iifname "eth0" tcp dport _DANTE_PORT_ ct state new,established  counter accept
-add rule ip filter INPUT iifname "eth0" tcp dport _TINYPROXY_PORT_ ct state new,established  counter accept
-add rule ip filter INPUT iifname "eth0" tcp dport _TORSOCKS_PORT_ ct state new,established  counter accept
-add rule ip filter INPUT iifname "eth0" tcp dport _PRIVOXY_PORT_ ct state new,established  counter accept
+add rule ip filter INPUT iifname "eth0" tcp dport _DNS_PORT_ ct state new,established counter accept
+add rule ip filter INPUT iifname "eth0" udp dport _DNS_PORT_ ct state new,established counter accept
+add rule ip filter INPUT iifname "eth0" tcp dport _DANTE_PORT_ ct state new,established counter accept
+add rule ip filter INPUT iifname "eth0" tcp dport _TINYPROXY_PORT_ ct state new,established counter accept
+add rule ip filter INPUT iifname "eth0" tcp dport _TORSOCKS_PORT_ ct state new,established counter accept
+add rule ip filter INPUT iifname "eth0" tcp dport _PRIVOXY_PORT_ ct state new,established counter accept
 add rule ip filter OUTPUT oifname "lo" counter accept
 add rule ip filter OUTPUT oifname "tun0" counter accept
 add rule ip filter OUTPUT ip saddr _ETH0_NET_ ip daddr _ETH0_NET_ counter accept
 add rule ip filter OUTPUT ip daddr _HOST_NETWORK_ counter accept
 add rule ip filter OUTPUT oifname "eth0" ip protocol tcp ip saddr _ETH0_NET_ ip daddr _HOST_NETWORK_ counter accept
-add rule ip filter OUTPUT ip protocol icmp ct state new,related,established  counter accept
+add rule ip filter OUTPUT ip protocol icmp ct state new,related,established counter accept
 add rule ip filter OUTPUT _OPENVPN_PROTO_ dport _OPENVPN_PORT_ counter accept
-add rule ip filter OUTPUT oifname "eth0" tcp sport _DNS_PORT_ ct state established  counter accept
-add rule ip filter OUTPUT oifname "eth0" udp sport _DNS_PORT_ ct state established  counter accept
-add rule ip filter OUTPUT oifname "eth0" tcp sport _DANTE_PORT_ ct state established  counter accept
-add rule ip filter OUTPUT oifname "eth0" ct state related,established  counter accept
-add rule ip filter OUTPUT oifname "eth0" tcp sport _TINYPROXY_PORT_ ct state established  counter accept
-add rule ip filter OUTPUT oifname "eth0" tcp sport _TORSOCKS_PORT_ ct state established  counter accept
-add rule ip filter OUTPUT oifname "eth0" tcp sport _PRIVOXY_PORT_ ct state established  counter accept
+add rule ip filter OUTPUT oifname "eth0" tcp sport _DNS_PORT_ ct state established counter accept
+add rule ip filter OUTPUT oifname "eth0" udp sport _DNS_PORT_ ct state established counter accept
+add rule ip filter OUTPUT oifname "eth0" tcp sport _DANTE_PORT_ ct state established counter accept
+add rule ip filter OUTPUT oifname "eth0" tcp sport _TINYPROXY_PORT_ ct state established counter accept
+add rule ip filter OUTPUT oifname "eth0" tcp sport _TORSOCKS_PORT_ ct state established counter accept
+add rule ip filter OUTPUT oifname "eth0" tcp sport _PRIVOXY_PORT_ ct state established counter accept
