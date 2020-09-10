@@ -20,10 +20,10 @@ ipnaked=$(dig +short myip.opendns.com @208.67.222.222)
 echo "[warn] Your ISP public IP is $ipnaked"
 
 ### nftables ###
-#echo ''
-#echo '[info] Set up nftables rules'
-#source /nftables.sh
-#echo '[info] All rules created'
+echo ''
+echo '[info] Set up nftables rules'
+source /nftables.sh
+echo '[info] All rules created'
 
 ### Quick block test ####
 echo ''
@@ -55,11 +55,6 @@ service tor start
 echo ''
 echo "[info] Run privoxy in background on port $PRIVOXY_PORT"
 privoxy /etc/privoxy/config
-
-### Create nft ruleset for reference ###
-echo ''
-echo '[info] Creating iptables and nft ruleset files for reference'
-iptables-save > /ruleset.ipt ; iptables-restore-translate -f /ruleset.ipt > /ruleset.nft
 
 ### Infinite loop to stop docker from stopping ###
 while true
