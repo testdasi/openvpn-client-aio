@@ -1,6 +1,7 @@
 #!/bin/bash
 
 ### Set various variable values ###
+echo ''
 echo '[info] Setting variables'
 source /set_variables.sh
 echo '[info] All variables set'
