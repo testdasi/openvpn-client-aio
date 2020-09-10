@@ -36,9 +36,6 @@ echo "[info] Block DnS-over-TLS to force traffic through tunnel"
 #nft delete rule filter OUTPUT handle 5
 
 echo "[info] Change DNS servers to ${DNS_SERVERS}"
-nft add chain ip dns INPUT { type filter hook input priority 1; policy drop; }
-nft add chain ip dns OUTPUT { type filter hook output priority 1; policy drop; }
-nft add chain ip dns FORWARD { type filter hook forward priority 1; policy drop; }
 # split comma seperated string into list from DNS_SERVERS env variable
 IFS=',' read -ra dns_server_list <<< "${DNS_SERVERS}"
 # remove existing dns, docker injects dns from host and isp dns can block/hijack
