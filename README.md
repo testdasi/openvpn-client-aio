@@ -12,7 +12,7 @@ An "all-in-one" docker for all your private browsing needs. Built for both Unrai
 ## Key features
 1. OpenVPN client to connect to your favourite VPN provider. Full freedom with what you want to do with the ovpn file.
 1. NFT kill switch to block connection when VPN is down
-1. Stubby for DNS server to connecto DoT (dns-over-tls) services (ip:53 or 127.2.2.2:5253)
+1. Stubby for DNS server to connec to DoT (dns-over-tls) services (ip:53 or 127.2.2.2:5253). USe Google and Cloudflare for best performance.
 1. Dante for SOCKS5 proxy to your VPN (ip:9118)
 1. Tinyproxy for HTTP proxy to your VPN (ip:8118)
 1. Torsocks for SOCKS5 proxy to TOR (ip:9119)
