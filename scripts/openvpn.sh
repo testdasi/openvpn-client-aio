@@ -31,9 +31,10 @@ echo "[info] Block DnS-over-TLS to force traffic through tunnel"
 #iptables -D INPUT  -p tcp --sport $DOT_PORT -m state --state ESTABLISHED     -j ACCEPT
 #iptables -D INPUT -s 1.1.1.1 -d $ETH0_NET -j ACCEPT
 #iptables -D OUTPUT -s $ETH0_NET -d 1.1.1.1 -j ACCEPT
-### NEED TO FIND RULE HANDLE TO DELETE ###
-#nft delete rule filter INPUT handle 5
-#nft delete rule filter OUTPUT handle 5
+rulehandle="$(nft list table filter -a | grep "udp sport $DOT_PORT")" ; rulehandle=${rulehandle:(-2)}
+nft delete rule filter INPUT handle $rulehandle
+rulehandle="$(nft list table filter -a | grep "udp dport $DOT_PORT")" ; rulehandle=${rulehandle:(-2)}
+nft delete rule filter OUTPUT handle $rulehandle
 
 echo "[info] Change DNS servers to ${DNS_SERVERS}"
 # split comma seperated string into list from DNS_SERVERS env variable
