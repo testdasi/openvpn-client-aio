@@ -7,13 +7,13 @@ if [ ! -c /dev/net/tun ]; then
 fi
 
 echo "[info] Allow DnS-over-TLS for openvpn to lookup VPN server"
+echo 'nameserver 127.2.2.2' > /etc/resolv.conf
 #iptables -A INPUT  -p tcp --sport $DOT_PORT -m state --state ESTABLISHED     -j ACCEPT
 #iptables -A OUTPUT -p tcp --dport $DOT_PORT -m state --state NEW,ESTABLISHED -j ACCEPT
 #iptables -A INPUT -s 1.1.1.1 -d $ETH0_NET -j ACCEPT
 #iptables -A OUTPUT -s $ETH0_NET -d 1.1.1.1 -j ACCEPT
 nft add rule ip filter INPUT udp sport $DOT_PORT counter accept
 nft add rule ip filter OUTPUT udp dport $DOT_PORT counter accept
-echo 'nameserver 127.2.2.2' >> /etc/resolv.conf
 
 echo "[info] Connecting to VPN on port $OPENVPN_PORT with proto $OPENVPN_PROTO..."
 openvpn --daemon --cd /etc/openvpn --config openvpn.ovpn
