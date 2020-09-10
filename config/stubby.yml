@@ -118,6 +118,7 @@ idle_timeout: 10000
 # specify a different port
 listen_addresses:
   - 127.2.2.2@5253
+  - 127.0.0.1@53
   - 0.0.0.0@53
 #  - 0::1
 
