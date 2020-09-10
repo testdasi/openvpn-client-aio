@@ -47,7 +47,7 @@ iptables -A OUTPUT -o eth0 -p tcp --sport $DNS_PORT -m state --state ESTABLISHED
 iptables -A INPUT -i eth0 -p udp --dport $DNS_PORT -m state --state NEW,ESTABLISHED -j ACCEPT
 iptables -A OUTPUT -o eth0 -p udp --sport $DNS_PORT -m state --state ESTABLISHED -j ACCEPT
 
-echo "[info] Unblock dante in bound from eth0 on $DANTE_PORT"
+echo "[info] Unblock dante inbound from eth0 on $DANTE_PORT"
 iptables -A INPUT -i eth0 -p tcp --dport $DANTE_PORT -m state --state NEW,ESTABLISHED -j ACCEPT
 iptables -A OUTPUT -o eth0 -p tcp --sport $DANTE_PORT -m state --state ESTABLISHED -j ACCEPT
 iptables -A OUTPUT -o eth0 -m state --state RELATED,ESTABLISHED -j ACCEPT
