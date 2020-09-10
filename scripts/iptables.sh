@@ -37,8 +37,8 @@ iptables -A INPUT  -p icmp -m state --state ESTABLISHED,RELATED     -j ACCEPT
 iptables -A OUTPUT -p icmp -m state --state NEW,ESTABLISHED,RELATED -j ACCEPT
 
 echo '[info] Unblock OpenVPN outgoing'
-iptables -A INPUT  -p udp --sport $OPENVPN_PORT -m state --state ESTABLISHED     -j ACCEPT
-iptables -A OUTPUT -p udp --dport $OPENVPN_PORT -m state --state NEW,ESTABLISHED -j ACCEPT
+iptables -A INPUT  -p $OPENVPN_PROTO --sport $OPENVPN_PORT -m state --state ESTABLISHED     -j ACCEPT
+iptables -A OUTPUT -p $OPENVPN_PROTO --dport $OPENVPN_PORT -m state --state NEW,ESTABLISHED -j ACCEPT
 
 echo '[info] Unblock DNS inbound from eth0'
 iptables -A INPUT -i eth0 -p tcp --dport $DNS_PORT -m state --state NEW,ESTABLISHED -j ACCEPT
