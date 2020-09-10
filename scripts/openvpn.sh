@@ -9,6 +9,7 @@ fi
 echo '[info] Unblock DnS-over-TLS port to allow DNS lookup'
 iptables -A OUTPUT -p tcp --dport $DOT_PORT -m state --state NEW,ESTABLISHED -j ACCEPT
 iptables -A INPUT  -p tcp --sport $DOT_PORT -m state --state ESTABLISHED     -j ACCEPT
+echo 'nameserver 127.0.0.1' >> /etc/resolv.conf
 
 echo "[info] Connecting to VPN on port $OPENVPN_PROTO$OPENVPN_PORT..."
 openvpn --daemon --cd /etc/openvpn --config openvpn.ovpn
