@@ -1,13 +1,9 @@
 #!/bin/bash
 
-### Dynamically determine OpenVPN port and protocol ###
-echo '[info] Determine openvpn port from config file'
-OPENVPN_PORT=$(grep -m 1 "remote " /etc/openvpn/openvpn.ovpn)
-OPENVPN_PORT=${OPENVPN_PORT:(-5)}
-echo '[info] Determine openvpn protocol from config file'
-OPENVPN_PROTO=$(grep -m 1 "proto " /etc/openvpn/openvpn.ovpn)
-OPENVPN_PROTO="$(echo $OPENVPN_PROTO | sed 's/proto //g')"
-echo "[info] port=$OPENVPN_PORT proto=$OPENVPN_PROTO"
+### Set various variable values ###
+echo '[info] Setting variables'
+source /set_variables.sh
+echo '[info] All variables set'
 
 ### Fixing config files ###
 echo ''
@@ -17,8 +13,6 @@ echo '[info] All configs fixed'
 
 ### Stubby DNS-over-TLS ###
 echo ''
-DNS_PORT=53
-DOT_PORT=853
 echo "[info] Run stubby in background on port $DNS_PORT"
 stubby -g -C /etc/stubby/stubby.yml
 ipnaked=$(dig +short myip.opendns.com @208.67.222.222)
@@ -26,7 +20,7 @@ echo "[warn] Your ISP public IP is $ipnaked"
 
 ### IPtable ###
 echo ''
-echo '[info] Set up IP tables'
+echo '[info] Set up iptables rules'
 source /iptables.sh
 echo '[info] All rules created'
 ipttest=$(dig +short +time=5 +tries=1 myip.opendns.com @208.67.222.222)
