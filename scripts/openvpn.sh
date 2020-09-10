@@ -11,7 +11,7 @@ iptables -A OUTPUT -p tcp --dport $DOT_PORT -m state --state NEW,ESTABLISHED -j 
 iptables -A INPUT  -p tcp --sport $DOT_PORT -m state --state ESTABLISHED     -j ACCEPT
 echo 'nameserver 127.0.0.1' >> /etc/resolv.conf
 
-echo "[info] Connecting to VPN on port $OPENVPN_PROTO$OPENVPN_PORT..."
+echo "[info] Connecting to VPN on port $OPENVPN_PORT with proto $OPENVPN_PROTO..."
 openvpn --daemon --cd /etc/openvpn --config openvpn.ovpn
 iphiden=$(dig +short +time=5 +tries=1 myip.opendns.com @208.67.222.222)
 while [[ $iphiden =~ "timed out" ]]
