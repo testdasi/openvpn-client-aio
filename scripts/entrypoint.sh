@@ -20,10 +20,19 @@ ipnaked=$(dig +short myip.opendns.com @208.67.222.222)
 echo "[warn] Your ISP public IP is $ipnaked"
 
 ### IPtables ###
+#echo ''
+#echo '[info] Set up iptables rules'
+#source /iptables.sh
+#echo '[info] All rules created'
+
+### nftables ###
 echo ''
-echo '[info] Set up iptables rules'
-source /iptables.sh
+echo '[info] Set up nftables rules'
+source /nftables.sh
 echo '[info] All rules created'
+
+### Quick block test ####
+echo ''
 ipttest=$(dig +short +time=5 +tries=1 myip.opendns.com @208.67.222.222)
 echo "[info] Quick block test. Expected result is time out. Actual result is $ipttest"
 
