@@ -6,7 +6,7 @@ if [ ! -c /dev/net/tun ]; then
     mknod /dev/net/tun c 10 200
 fi
 
-echo '[info] Unblock DnS-over-TLS port to allow DNS lookup'
+echo '[info] Unblock DnS-over-TLS to allow VPN DNS lookup'
 iptables -A OUTPUT -p tcp --dport $DOT_PORT -m state --state NEW,ESTABLISHED -j ACCEPT
 iptables -A INPUT  -p tcp --sport $DOT_PORT -m state --state ESTABLISHED     -j ACCEPT
 echo 'nameserver 127.0.0.1' >> /etc/resolv.conf
