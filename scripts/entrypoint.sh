@@ -18,6 +18,7 @@ echo '[info] All configs fixed'
 ### Stubby DNS-over-TLS ###
 echo ''
 DNS_PORT=53
+DOT_PORT=853
 echo "[info] Run stubby in background on port $DNS_PORT"
 stubby -g -C /etc/stubby/stubby.yml
 ipnaked=$(dig +short myip.opendns.com @208.67.222.222)
