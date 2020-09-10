@@ -6,9 +6,11 @@ if [ ! -c /dev/net/tun ]; then
     mknod /dev/net/tun c 10 200
 fi
 
-echo "[info] Allow DnS-over-TLS port $DOT_PORT for openvpn to lookup VPN server"
+echo "[info] Allow DnS-over-TLS for openvpn to lookup VPN server"
 iptables -A OUTPUT -p tcp --dport $DOT_PORT -m state --state NEW,ESTABLISHED -j ACCEPT
 iptables -A INPUT  -p tcp --sport $DOT_PORT -m state --state ESTABLISHED     -j ACCEPT
+iptables -A INPUT -s 1.1.1.1 -d $ETH0_NET -j ACCEPT
+iptables -A OUTPUT -s $ETH0_NET -d 1.1.1.1 -j ACCEPT
 echo 'nameserver 127.0.0.1' >> /etc/resolv.conf
 
 echo "[info] Connecting to VPN on port $OPENVPN_PORT with proto $OPENVPN_PROTO..."
@@ -22,9 +24,11 @@ do
 done
 echo "[info] Your VPN public IP is $iphiden"
 
-echo "[info] Block DnS-over-TLS port $DOT_PORT"
+echo "[info] Block DnS-over-TLS to force traffic through tunnel"
 iptables -D OUTPUT -p tcp --dport $DOT_PORT -m state --state NEW,ESTABLISHED -j ACCEPT
 iptables -D INPUT  -p tcp --sport $DOT_PORT -m state --state ESTABLISHED     -j ACCEPT
+iptables -D INPUT -s 1.1.1.1 -d $ETH0_NET -j ACCEPT
+iptables -D OUTPUT -s $ETH0_NET -d 1.1.1.1 -j ACCEPT
 
 echo "[info] Change DNS servers to ${DNS_SERVERS}"
 # split comma seperated string into list from DNS_SERVERS env variable
