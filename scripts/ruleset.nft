@@ -28,3 +28,4 @@ add rule ip filter OUTPUT oifname "eth0" tcp sport _DANTE_PORT_ ct state establi
 add rule ip filter OUTPUT oifname "eth0" tcp sport _TINYPROXY_PORT_ ct state established counter accept
 add rule ip filter OUTPUT oifname "eth0" tcp sport _TORSOCKS_PORT_ ct state established counter accept
 add rule ip filter OUTPUT oifname "eth0" tcp sport _PRIVOXY_PORT_ ct state established counter accept
+add rule ip filter OUTPUT oifname "eth0" ct state related,established counter accept
