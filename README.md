@@ -22,20 +22,44 @@ An "all-in-one" docker for all your private browsing needs.
     docker run -d \
         --name=<container name> \
         --cap-add=NET_ADMIN \
-        -v <path for openvpn file>:/etc/openvpn \
-        -p 53:53 \
-        -p 9118:9118 \
-        -p 8118:8118 \
-        -p 9119:9119 \
-        -p 8119:8119 \
-        -e DNS_SERVER_PORT=53
+        -v <path for openvpn config>:/etc/openvpn \
+        -e DNS_SERVERS=127.2.2.2 \
+        -e HOST_NETWORK=192.168.0.1/24 \
+        -p 53:53/tcp \
+        -p 53:53/udp \
+        -p 9118:9118/tcp \
+        -p 8118:8118/tcp \
+        -p 9119:9119/tcp \
+        -p 8119:8119/tcp \
+        -e DNS_SERVER_PORT=53 \
         -e SOCKS_PROXY_PORT=9118 \
         -e HTTP_PROXY_PORT=8118 \
         -e TOR_SOCKS_PORT=9119 \
         -e TOR_HTTP_PORT=8119 \
-        -e DNS_SERVERS=127.0.0.1 \
-        -e HOST_NETWORK=192.168.0.1/24 \
         testdasi/openvpn-client-aio-arm
+
+## Unraid example
+    docker run -d \
+        --name='OpenVPN-AIO-Client' \
+        --cap-add=NET_ADMIN \
+        -v '/mnt/user/appdata/openvpn-aio-client':'/etc/openvpn':'rw' \
+        -e 'DNS_SERVERS'='127.2.2.2' \
+        -e 'HOST_NETWORK'='192.168.0.1/24' \
+        -p '8153:53/tcp' \
+        -p '8153:53/udp' \
+        -p '9118:9118/tcp' \
+        -p '8118:8118/tcp' \
+        -p '9119:9119/tcp' \
+        -p '8119:8119/tcp' \
+        -e 'DNS_SERVER_PORT'='53' \
+        -e 'SOCKS_PROXY_PORT'='9118' \
+        -e 'HTTP_PROXY_PORT'='8118' \
+        -e 'TOR_SOCKS_PORT'='9119' \
+        -e 'TOR_HTTP_PORT'='8119' \
+        --net='bridge' \
+        -e TZ="Europe/London" \
+        -e HOST_OS="Unraid" \
+        'testdasi/openvpn-client-aio:latest-amd64' 
 
 ## Notes
 * I code for fun and my personal uses; hence, these niche functionalties that nobody asks for. ;)
