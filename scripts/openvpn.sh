@@ -6,9 +6,12 @@ if [ ! -c /dev/net/tun ]; then
     mknod /dev/net/tun c 10 200
 fi
 
-openvpn --daemon --cd /etc/openvpn --config openvpn.ovpn
-echo "[info] Connecting to VPN on port $OPENVPN_PORT..."
+echo '[info] Temp unblock of DnS-over-TLS port to allow DNS lookup'
+iptables -A OUTPUT -p tcp --dport 853 -m state --state NEW,ESTABLISHED -j ACCEPT
+iptables -A INPUT  -p tcp --sport 853 -m state --state ESTABLISHED     -j ACCEPT
 
+echo "[info] Connecting to VPN on port $OPENVPN_PORT..."
+openvpn --daemon --cd /etc/openvpn --config openvpn.ovpn
 iphiden=$(dig +short +time=5 +tries=1 myip.opendns.com @208.67.222.222)
 while [[ $iphiden =~ "timed out" ]]
 do 
@@ -17,6 +20,10 @@ do
     iphiden=$(dig +short +time=5 +tries=1 myip.opendns.com @208.67.222.222)
 done
 echo "[info] Your VPN public IP is $iphiden"
+
+echo '[info] Block DnS-over-TLS port'
+iptables -D OUTPUT -p tcp --dport 853 -m state --state NEW,ESTABLISHED -j ACCEPT
+iptables -D INPUT  -p tcp --sport 853 -m state --state ESTABLISHED     -j ACCEPT
 
 echo "[info] Change DNS servers to ${DNS_SERVERS}"
 # split comma seperated string into list from DNS_SERVERS env variable
