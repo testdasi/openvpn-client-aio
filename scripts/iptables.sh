@@ -4,6 +4,9 @@ echo '[info] Block everything (unless unblock explicitly)'
 iptables -P INPUT DROP
 #iptables -P FORWARD DROP
 iptables -P OUTPUT DROP
+iptables-legacy -P INPUT DROP
+iptables-legacy -P FORWARD DROP
+iptables-legacy -P OUTPUT DROP
 
 echo '[info] Unblock loopback'
 iptables -A INPUT -i lo -j ACCEPT
