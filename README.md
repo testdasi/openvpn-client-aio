@@ -12,11 +12,11 @@ An "all-in-one" docker for all your private browsing needs.
 ## Key features
 1. OpenVPN client to connect to your favourite VPN provider. Full freedom with what you want to do with the ovpn file.
 1. IPtable rules to block connection when VPN is down
+1. Stubby for DNS server to connecto dns-over-tls services (ip:53 or 127.2.2.2:5253)
 1. Dante for SOCKS5 proxy to your VPN (ip:9118)
 1. Tinyproxy for HTTP proxy to your VPN (ip:8118)
 1. Torsocks for SOCKS5 proxy to TOR (ip:9119)
 1. Privoxy for HTTP proxy to TOR (ip:8119)
-1. Stubby for dns-over-tls client (ip:53 or 127.2.2.2:5253)
 
 ## Usage
     docker run -d \
@@ -28,6 +28,7 @@ An "all-in-one" docker for all your private browsing needs.
         -p 8118:8118 \
         -p 9119:9119 \
         -p 8119:8119 \
+        -e DNS_SERVER_PORT=53
         -e SOCKS_PROXY_PORT=9118 \
         -e HTTP_PROXY_PORT=8118 \
         -e TOR_SOCKS_PORT=9119 \
