@@ -6,7 +6,7 @@ if [ ! -c /dev/net/tun ]; then
     mknod /dev/net/tun c 10 200
 fi
 
-echo '[info] Unblock DnS-over-TLS to allow VPN DNS lookup'
+echo "[info] Allow DnS-over-TLS port $DOT_PORT for openvpn to lookup VPN server"
 iptables -A OUTPUT -p tcp --dport $DOT_PORT -m state --state NEW,ESTABLISHED -j ACCEPT
 iptables -A INPUT  -p tcp --sport $DOT_PORT -m state --state ESTABLISHED     -j ACCEPT
 echo 'nameserver 127.0.0.1' >> /etc/resolv.conf
@@ -22,7 +22,7 @@ do
 done
 echo "[info] Your VPN public IP is $iphiden"
 
-echo '[info] Block DnS-over-TLS port'
+echo "[info] Block DnS-over-TLS port $DOT_PORT"
 iptables -D OUTPUT -p tcp --dport $DOT_PORT -m state --state NEW,ESTABLISHED -j ACCEPT
 iptables -D INPUT  -p tcp --sport $DOT_PORT -m state --state ESTABLISHED     -j ACCEPT
 
@@ -39,9 +39,10 @@ for dns_server_item in "${dns_server_list[@]}"; do
     echo "[info] Adding ${dns_server_item} to /etc/resolv.conf"
     echo "nameserver ${dns_server_item}" >> /etc/resolv.conf
     
+    #resolv.conf only supports port 53
     echo "[info] Allowing DNS lookups (tcp, udp port 53) to server '${dns_server_item}'"
-    iptables -A OUTPUT -p udp -d ${dns_server_item} --dport $DNS_PORT -m state --state NEW,ESTABLISHED -j ACCEPT
-    iptables -A INPUT  -p udp -s ${dns_server_item} --sport $DNS_PORT -m state --state ESTABLISHED     -j ACCEPT
-    iptables -A OUTPUT -p tcp -d ${dns_server_item} --dport $DNS_PORT -m state --state NEW,ESTABLISHED -j ACCEPT
-    iptables -A INPUT  -p tcp -s ${dns_server_item} --sport $DNS_PORT -m state --state ESTABLISHED     -j ACCEPT
+    iptables -A OUTPUT -p udp -d ${dns_server_item} --dport 53 -m state --state NEW,ESTABLISHED -j ACCEPT
+    iptables -A INPUT  -p udp -s ${dns_server_item} --sport 53 -m state --state ESTABLISHED     -j ACCEPT
+    iptables -A OUTPUT -p tcp -d ${dns_server_item} --dport 53 -m state --state NEW,ESTABLISHED -j ACCEPT
+    iptables -A INPUT  -p tcp -s ${dns_server_item} --sport 53 -m state --state ESTABLISHED     -j ACCEPT
 done
