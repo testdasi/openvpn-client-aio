@@ -16,7 +16,7 @@
 #        $nft delete table $FAMILY $TABLE
 #    done
 #done
-nft flush ruleset
+#nft flush ruleset
 
 ### Editing ruleset ###
 echo '[info] Editing ruleset'
