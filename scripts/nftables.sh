@@ -20,7 +20,6 @@ nft flush ruleset
 
 ### Editing ruleset ###
 echo '[info] Editing ruleset'
-rm /nftables.rules
 cp /ruleset.nft /nftables.rules
 sed -i "s|_ETH0_NET_|$ETH0_NET|g" '/nftables.rules'
 sed -i "s|_HOST_NETWORK_|${HOST_NETWORK}|g" '/nftables.rules'
@@ -35,4 +34,4 @@ sed -i "s|_PRIVOXY_PORT_|$PRIVOXY_PORT|g" '/nftables.rules'
 ### Add rules ###
 echo '[info] Apply rules'
 nft -f /nftables.rules
-#rm /nftables.rules
+rm /nftables.rules
