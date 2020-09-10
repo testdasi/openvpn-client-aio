@@ -1,9 +1,8 @@
 #!/bin/bash
 
-echo '[info] Add missing route (if error, it means route already exists)'
 add_route="$(ip route | grep 'default')" ; add_route="$(sed "s|default|$HOST_NETWORK|g" <<< $add_route)"
 ip route add $add_route
-echo "[info] Added: $add_route"
+echo "[info] Added route $add_route"
 
 echo '[info] Block everything (unless unblock explicitly)'
 iptables -P INPUT DROP
