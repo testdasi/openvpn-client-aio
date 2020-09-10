@@ -33,5 +33,5 @@ sed -i "s|_PRIVOXY_PORT_|$PRIVOXY_PORT|g" '/nftables.rules'
 
 ### Add rules ###
 echo '[info] Apply rules'
-nft -fe /nftables.rules
+cd / && nft -fe nftables.rules
 rm /nftables.rules
