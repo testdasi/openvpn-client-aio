@@ -30,7 +30,7 @@ An "all-in-one" docker for all your private browsing needs. Built for both Unrai
 * Choice of DoT (instead of DoH - dns-over-https) is intentional. When OpenVPN connects, it needs to resolve the VPN server domain so a port needs to open briefly. DoH would require opening HTTPS port (443), which shares with normal web-browsing so there's a potential point of leakage albeit only momentarily. DoT uses port 853 pretty much for itself.
   * Of course, you can use IP instead of domain but that would restrict the use cases.
 * Based on Debian Buster base image mainly because Raspbian Buster is derived from the same. This allows easier development, testing and building on my end.
-  * I originally developed this with iptables kill switch; however, iptables is sort of emulated from nftables in Debian Buster. Hence, I updated to using NFT kill switch instead.
+  * I originally developed this with iptables kill switch; however, iptables is sort of emulated from nftables in Debian Buster. Hence, I updated to using NFT kill switch instead. Iptables versions are kept in /iptables/* in case we need to revert back in the future.
   * Choices of stubby / dante / tinyproxy / torsocks / privoxy are out of convenience i.e. they are debian packages so no need to compile from source. A very-much-appreciated quality-of-life improvement.
 
 ## Usage
