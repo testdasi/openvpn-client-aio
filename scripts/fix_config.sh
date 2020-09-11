@@ -7,7 +7,7 @@ sed -i "s|internal: eth0 port=1080|internal: eth0 port=$DANTE_PORT|g" '/etc/dant
 echo '[info] danted fixed'
 
 sed -i "s|Port 8080|Port $TINYPROXY_PORT|g" '/etc/tinyproxy/tinyproxy.conf'
-sed -i "s|upstream socks5 localhost:1080|upstream socks5 localhost:$DANTE_PORT|g" '/etc/tinyproxy/tinyproxy.conf'
+sed -i "s|upstream socks5 localhost:1080|upstream socks5 $ETH0_IP:$DANTE_PORT|g" '/etc/tinyproxy/tinyproxy.conf'
 echo '[info] tinyproxy fixed'
 
 sed -i "s|SOCKSPort 0\.0\.0\.0:9050|SOCKSPort 0\.0\.0\.0:$TORSOCKS_PORT|g" '/etc/tor/torrc'
