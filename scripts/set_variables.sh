@@ -28,5 +28,6 @@ ETH0_IPLEN=${#ETH0_IP} ; let ETH0_IPLEN-=3
 #Use sipcalc to get first IP (.0) of network and sed to clean up resulting string when eth0 IP longer than first IP e.g. .100 vs .0
 ETH0_NET0="$(sipcalc $ETH0_IP | grep 'Network address')" ; ETH0_NET0=${ETH0_NET0:(-$ETH0_IPLEN)} ; ETH0_NET0="$(echo $ETH0_NET0 | sed 's/ //g')" ; ETH0_NET0="$(echo $ETH0_NET0 | sed 's/-//g')"
 #Network in CIDR format
+ETH0_IP=${ETH0_IP:0:$ETH0_IPLEN}
 ETH0_NET="$ETH0_NET0$ETH0_RANGE"
 echo "[info] eth0 IP is $ETH0_IP in network $ETH0_NET"
