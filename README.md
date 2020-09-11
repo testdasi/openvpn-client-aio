@@ -23,11 +23,11 @@ An "all-in-one" docker for all your private browsing needs. Built for both Unrai
 * Explaining the parameters (the values you see in Usage section are default values)
   * DNS_SERVERS: set to 127.2.2.2 will point to stubby (which in turn points to Google / Cloudflare DoT services). Your DNS queries out of the VPN exit will also be encrypted before arriving at Google / Cloudflare for even more privacy. Change it to other comma-separated IPs (e.g. 1.1.1.1,8.8.8.8) will use normal unencrypted DNS, or perhaps a pihole in the local network.
   * HOST_NETWORK: to enable free flow between host network and the docker (e.g. when using docker bridge network). Otherwise, your proxies will only work from within the docker network. Must be in CIDR format e.g. 192.168.0.1/24
-  * DNS_SERVER_PORT: the docker will serve as a DNS server for the local network so everything, including DNS comes out of the VPN exit.
-  * SOCKS/HTTP_PROXY_PORT: use this proxies if you want to exit through your VPN.
-  * TOR_SOCKS/HTTP_PORT: use these proxies if you want to exit through TOR.
+  * DNS_SERVER_PORT: the docker will serve as a DNS server for the local network so everything, including DNS, comes out of the VPN exit.
+  * SOCKS/HTTP_PROXY_PORT: use these proxies if you want to exit through your VPN. Point to your docker IP on the respective ports.
+  * TOR_SOCKS/HTTP_PORT: use these proxies if you want to exit through TOR. Point to your docker IP on the respective ports.
   * The docker port mappings map host ports to docker ports. The docker ports are determined by the aforementioned PORT variables. So if you change the docker variables, you should also change the port mappings accordingly.
-* Choice of DoT (instead of DoH - dns-over-https) is intentional. When OpenVPN connects, it needs to resolve the VPN server domain so a port needs to open briefly. DoH would require opening HTTPS port (443), which shares with normal web-browsing so there's a potential point of leakage albeit only momentarily. DoT uses port 853 pretty much for itself.
+* Choice of DoT (instead of DoH - dns-over-https) was intentional. When OpenVPN connects, it needs to resolve the VPN server domain so a port needs to open briefly. DoH would require opening HTTPS port (443), which shares with normal web-browsing so there's a potential point of leakage albeit only momentarily. DoT uses port 853 pretty much for itself.
   * Of course, you can use IP instead of domain but that would restrict the use cases.
 * Based on Debian Buster base image mainly because Raspbian Buster is derived from the same. This allows easier development, testing and building on my end.
   * I originally developed this with iptables kill switch; however, iptables is sort of emulated from nftables in Debian Buster. Hence, I updated to using NFT kill switch instead. Iptables versions are kept in /iptables/* in case we need to revert back in the future.
