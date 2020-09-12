@@ -21,6 +21,4 @@ RUN /bin/bash /install.sh \
 
 VOLUME ["/etc/openvpn"]
 
-RUN echo "$(date "+%d.%m.%Y %T") Successfully built from $FRM:$TAG" >> /build_date.info
-
 ENTRYPOINT ["/entrypoint.sh"]
