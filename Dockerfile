@@ -1,10 +1,9 @@
 ARG FRM='testdasi/openvpn-client-aio-base'
 ARG TAG='latest'
-
 FROM $FRM:$TAG
 
-#ENV FRM ${FRM}
-#ENV TAG ${TAG}
+RUN echo "$(date "+%d.%m.%Y %T")" >> /build_date.info
+
 ENV DNS_SERVER_PORT 53
 ENV SOCKS_PROXY_PORT 9118
 ENV HTTP_PROXY_PORT 8118
