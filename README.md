@@ -11,9 +11,7 @@ An "all-in-one" docker for all your private browsing needs. Built for both Unrai
 
 ## Key features
 1. OpenVPN client to connect to your favourite VPN provider. Full freedom with what you want to do with the ovpn file.
-1. 2 sets of kill switches
-  1. NFT kill switch to block connection when VPN is down.
-  1. HTTP proxy -> SOCKS5 proxy -> VPN tun0 / TOR tunnel.
+1. 2 sets of kill switches. NFT kill switch to block connection when VPN is down. Piping kill switch HTTP proxy -> SOCKS5 proxy -> VPN tun0 / TOR tunnel.
 1. Stubby for DNS server to connec to DoT (dns-over-tls) services (ip:53 or 127.2.2.2:5253). Use Google and Cloudflare for best performance.
 1. Dante for SOCKS5 proxy to your VPN (ip:9118)
 1. Tinyproxy for HTTP proxy to your VPN (ip:8118)
