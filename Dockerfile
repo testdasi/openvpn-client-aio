@@ -1,4 +1,5 @@
-FROM testdasi/openvpn-client-aio-base:latest-amd64
+ARG TAG
+FROM testdasi/openvpn-client-aio-base:$TAG
 
 ARG DNS_SERVER_PORT=53
 ARG SOCKS_PROXY_PORT=9118
