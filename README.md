@@ -2,7 +2,7 @@
 An "all-in-one" docker for all your private browsing needs. Built for both Unraid and Raspberry Pi 4 but should work in other Linux amd64 / arm32v7 docker environments.
 
 ## PULL THE RIGHT TAG!
-* For linux/amd64 (e.g. Unraid) -> pull testdasi/openvpn-client-aio:latest-amd64
+* For linux/amd64 (e.g. Unraid) -> pull testdasi/openvpn-client-aio:stable-amd64
 * For linux/arm/v7 (e.g. Raspberry Pi4) -> pull testdasi/openvpn-client-aio:latest-rpi4 
 
 ## High-level instructions
@@ -76,7 +76,7 @@ An "all-in-one" docker for all your private browsing needs. Built for both Unrai
         --net='bridge' \
         -e TZ="Europe/London" \
         -e HOST_OS="Unraid" \
-        'testdasi/openvpn-client-aio:latest-amd64' 
+        'testdasi/openvpn-client-aio:stable-amd64' 
 
 ## Notes
 * I code for fun and my personal uses; hence, these niche functionalties that nobody asks for. ;)
