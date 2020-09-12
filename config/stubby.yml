@@ -44,10 +44,6 @@ round_robin_upstreams: 1
 # connection for every query.
 idle_timeout: 10000
 
-# Specify the timeout on getting a response to an individual request
-# (default 5s)
-timeout: 1
-
 ################################ LISTEN ADDRESS ################################
 # Set the listen addresses for the stubby DAEMON. This specifies localhost IPv4
 # and IPv6. It will listen on port 53 by default. Use <IP_address>@<port> to
