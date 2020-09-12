@@ -1,4 +1,4 @@
-ARG TAG='latest'
+ARG TAG=latest
 FROM testdasi/openvpn-client-aio-base:$TAG
 
 RUN echo "$(date "+%d.%m.%Y %T")" >> /build_date.info
