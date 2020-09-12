@@ -24,6 +24,9 @@ An "all-in-one" docker for all your private browsing needs. Built for both Unrai
   * DNS_SERVERS: set to 127.2.2.2 will point to stubby (which in turn points to Google / Cloudflare DoT services). Your DNS queries out of the VPN exit will also be encrypted before arriving at Google / Cloudflare for even more privacy. Change it to other comma-separated IPs (e.g. 1.1.1.1,8.8.8.8) will use normal unencrypted DNS, or perhaps a pihole in the local network.
   * HOST_NETWORK: to enable free flow between host network and the docker (e.g. when using docker bridge network). Otherwise, your proxies will only work from within the docker network. Must be in CIDR format e.g. 192.168.0.1/24
   * DNS_SERVER_PORT: the docker will serve as a DNS server for the local network so everything, including DNS, comes out of the VPN exit.
+    * Work best if set to 53 as most things can't handle DNS on other ports. In which case + Unraid, you have to give the docker its own static IP i.e. using a docker macvlan network (Custom :br0 / br1).
+    * You will need to set each device DNS to the docker IP.
+    * Alternatively, you can set your router DHCP to set DNS to the docker IP.
   * SOCKS/HTTP_PROXY_PORT: use these proxies if you want to exit through your VPN. Point to your docker IP on the respective ports.
   * TOR_SOCKS/HTTP_PORT: use these proxies if you want to exit through TOR. Point to your docker IP on the respective ports.
   * The docker port mappings map host ports to docker ports. The docker ports are determined by the aforementioned PORT variables. So if you change the docker variables, you should also change the port mappings accordingly.
