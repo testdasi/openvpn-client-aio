@@ -1,5 +1,7 @@
-ARG TAG
-FROM testdasi/openvpn-client-aio-base:$TAG
+ARG FRM='testdasi/openvpn-client-aio-base'
+ARG TAG='latest'
+
+FROM $FRM:$TAG
 
 ARG DNS_SERVER_PORT=53
 ARG SOCKS_PROXY_PORT=9118
@@ -18,5 +20,7 @@ RUN /bin/bash /install.sh \
     && rm -f /install.sh
 
 VOLUME ["/etc/openvpn"]
+
+RUN echo "$(date "+%d.%m.%Y %T") Successfully built from $FRM:$TAG" >> build_date.info
 
 ENTRYPOINT ["/entrypoint.sh"]
