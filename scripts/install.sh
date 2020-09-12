@@ -20,5 +20,3 @@ apt-get -y autoremove \
 
 # chmod scripts
 chmod +x /*.sh
-
-echo "$(date "+%d.%m.%Y %T") Successfully built from $FRM:$TAG" >> /build_date.info
