@@ -1,6 +1,5 @@
-ARG FRM='testdasi/openvpn-client-aio-base'
 ARG TAG='latest'
-FROM $FRM:$TAG
+FROM testdasi/openvpn-client-aio-base:$TAG
 
 RUN echo "$(date "+%d.%m.%Y %T")" >> /build_date.info
 
