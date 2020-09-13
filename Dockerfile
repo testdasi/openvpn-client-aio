@@ -1,5 +1,9 @@
-ARG TAG=latest
-FROM testdasi/openvpn-client-aio-base:$TAG
+ARG FRM='testdasi/openvpn-client-aio-base'
+ARG TAG='latest'
+
+FROM ${FRM}:${TAG}
+ARG FRM
+ARG TAG
 
 ENV DNS_SERVER_PORT 53
 ENV SOCKS_PROXY_PORT 9118
@@ -21,4 +25,4 @@ VOLUME ["/etc/openvpn"]
 
 ENTRYPOINT ["/entrypoint.sh"]
 
-RUN echo "$(date "+%d.%m.%Y %T")" >> /build_date.info
+RUN echo "$(date "+%d.%m.%Y %T") Built from ${FRM} with tag ${TAG}" >> /build_date.info
