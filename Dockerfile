@@ -1,8 +1,6 @@
 ARG TAG=latest
 FROM testdasi/openvpn-client-aio-base:$TAG
 
-RUN echo "$(date "+%d.%m.%Y %T")" >> /build_date.info
-
 ENV DNS_SERVER_PORT 53
 ENV SOCKS_PROXY_PORT 9118
 ENV HTTP_PROXY_PORT 8118
@@ -22,3 +20,5 @@ RUN /bin/bash /install.sh \
 VOLUME ["/etc/openvpn"]
 
 ENTRYPOINT ["/entrypoint.sh"]
+
+RUN echo "$(date "+%d.%m.%Y %T")" >> /build_date.info
