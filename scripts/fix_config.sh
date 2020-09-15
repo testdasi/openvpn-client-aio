@@ -19,7 +19,7 @@ if [[ -f "/usr/sbin/tor" ]]; then
     sed -i "s|forward-socks5t \/ localhost:9050|forward-socks5t \/ localhost:$TORSOCKS_PORT|g" '/etc/privoxy/config'
     echo '[info] privoxy fixed'
 else
-	  echo ''
+    echo ''
     echo "[info] Torless build detected. Skip fixing torsocks + privoxy configs."
 fi
 
