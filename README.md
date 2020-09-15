@@ -4,6 +4,7 @@ An "all-in-one" docker for all your private browsing needs. Built for both Unrai
 ## PULL THE RIGHT TAG!
 * For linux/amd64 (e.g. Unraid) -> pull testdasi/openvpn-client-aio:stable-amd64
 * For linux/arm/v7 (e.g. Raspberry Pi4) -> pull testdasi/openvpn-client-aio:stable-rpi4 
+* For versions without TOR (and Privoxy), pull testdasi/openvpn-client-aio:stable-torless-amd64 / testdasi/openvpn-client-aio:stable-torless-rpi4
 
 ## High-level instructions
 * Copy your OpenVPN configuration to the host path that is mapped to */etc/openvpn* (must include openvpn.ovpn + credentials + certs).
