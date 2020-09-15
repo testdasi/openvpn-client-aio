@@ -49,14 +49,14 @@ tinyproxy -c /etc/tinyproxy/tinyproxy.conf
 ### Run TOR+Privoxy depending on build ###
 if [[ -f "/usr/sbin/tor" ]]; then
     echo ''
-    echo "[info] Tor build detected."
+    echo '[info] Tor build detected.'
     echo "[info] Run tor as service on port $TORSOCKS_PORT"
     service tor start
     echo "[info] Run privoxy in background on port $PRIVOXY_PORT"
     privoxy /etc/privoxy/config
 else
     echo ''
-    echo "[info] Torless build detected. Skip running torsocks + privoxy configs."
+    echo '[info] Torless build detected. Skip running torsocks + privoxy configs.'
 fi
 
 ### Infinite loop to stop docker from stopping ###
