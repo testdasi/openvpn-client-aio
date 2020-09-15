@@ -9,12 +9,12 @@ cd /tmp \
     && cp -n ./danted.conf /etc/
 
 # add tor and privoxy depending on torless tag
-if [[ ${TAG} =~ "torless" ]]
+if [[ ${BUILD_OPT} =~ "torless" ]]
 then
     cd /tmp \
     && rm -fr ./torrc \
     && rm -fr ./privoxy
-    echo "[info] Don't install torsocks and privoxy due to tag ${TAG}"
+    echo "[info] Don't install torsocks and privoxy due to build option ${BUILD_OPT}"
 else
     # install torsocks and privoxy
     apt-get -y update \
@@ -29,7 +29,7 @@ else
     && cp -n ./torrc /etc/tor/ \
     && cp -n ./privoxy /etc/privoxy/config
     
-    echo "[info] Installed torsocks and privoxy due to tag ${TAG}"
+    echo "[info] Installed torsocks and privoxy due to build option ${BUILD_OPT}"
 fi
 
 # clean up
