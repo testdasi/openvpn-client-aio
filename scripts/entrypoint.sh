@@ -56,7 +56,7 @@ if [[ -f "/usr/sbin/tor" ]]; then
     privoxy /etc/privoxy/config
 else
     echo ''
-    echo "[info] Torless build detected so do nothing"
+    echo "[info] Torless build detected so don't run tor + privoxy"
 fi
 
 ### Infinite loop to stop docker from stopping ###
