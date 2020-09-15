@@ -12,7 +12,7 @@ echo '[info] tinyproxy fixed'
 
 ### Fix TOR+Privoxy depending on build ###
 if [[ -f "/usr/sbin/tor" ]]; then
-    echo "[info] Tor build detected"
+    echo "[info] Tor build detected."
     sed -i "s|SOCKSPort 0\.0\.0\.0:9050|SOCKSPort 0\.0\.0\.0:$TORSOCKS_PORT|g" '/etc/tor/torrc'
     echo '[info] torsocks fixed'
     sed -i "s|listen-address 0\.0\.0\.0:8118|listen-address 0\.0\.0\.0:$PRIVOXY_PORT|g" '/etc/privoxy/config'
@@ -20,7 +20,7 @@ if [[ -f "/usr/sbin/tor" ]]; then
     echo '[info] privoxy fixed'
 else
 	  echo ''
-    echo "[info] Torless build detected so don't fix torsocks + privoxy configs"
+    echo "[info] Torless build detected. Skip fixing torsocks + privoxy configs"
 fi
 
 
