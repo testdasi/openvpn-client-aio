@@ -9,6 +9,7 @@ echo "[info] Added route $add_route"
 
 ### Editing ruleset ###
 echo '[info] Editing base ruleset'
+rm -f /nftables.rules
 cp /ruleset.nft /nftables.rules
 sed -i "s|_ETH0_NET_|$ETH0_NET|g" '/nftables.rules'
 sed -i "s|_HOST_NETWORK_|${HOST_NETWORK}|g" '/nftables.rules'
