@@ -20,7 +20,7 @@ if [[ -f "/usr/sbin/tor" ]]; then
     echo '[info] privoxy fixed'
 else
 	  echo ''
-    echo "[info] Torless build detected. Skip fixing torsocks + privoxy configs"
+    echo "[info] Torless build detected. Skip fixing torsocks + privoxy configs."
 fi
 
 
