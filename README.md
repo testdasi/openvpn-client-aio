@@ -82,3 +82,6 @@ An "all-in-one" docker for all your private browsing needs. Built for both Unrai
 ## Notes
 * I code for fun and my personal uses; hence, these niche functionalties that nobody asks for. ;)
 * Tested only with PIA since I can't afford anything else. Theoretically, it should work with any VPN services that support OpenVPN.
+* If you like my work, [a donation to my burger fund](https://paypal.me/mersenne) is very much appreciated.
+
+[![Donate](https://raw.githubusercontent.com/testdasi/testdasi-unraid-repo/master/donate-button-small.png)](https://paypal.me/mersenne). 
