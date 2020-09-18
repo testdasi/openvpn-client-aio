@@ -1,12 +1,5 @@
 #!/bin/bash
 
-### Flusing ruleset and add missing route ###
-echo '[info] Flusing ruleset'
-nft flush ruleset
-add_route="$(ip route | grep 'default')" ; add_route="$(sed "s|default|$HOST_NETWORK|g" <<< $add_route)"
-ip route add $add_route
-echo "[info] Added route $add_route"
-
 ### Editing ruleset ###
 echo '[info] Editing base ruleset'
 rm -f /nftables.rules
@@ -32,7 +25,6 @@ else
     sed -i 's|add rule ip filter OUTPUT oifname "eth0" tcp sport _PRIVOXY_PORT_ ct state established counter accept||g' '/nftables.rules'
 fi
 
-### Add rules ###
-echo '[info] Apply rules'
-nft -f /nftables.rules
-rm /nftables.rules
+### static scripts ###
+source /static/scripts/nftables_apply.sh
+source /static/scripts/nftables_quick_block_test.sh
