@@ -1,12 +1,12 @@
 #!/bin/bash
 
-# add various base configs
-cd /tmp \
-    && mkdir -p /etc/stubby \
-    && cp -n ./stubby.yml /etc/stubby/ \
-    && mkdir -p /etc/tinyproxy \
-    && cp -n ./tinyproxy.conf /etc/tinyproxy/ \
-    && cp -n ./danted.conf /etc/
+# install static files
+mkdir -p /temp \
+    && cd /temp \
+    && curl -L "https://github.com/testdasi/static/archive/master.zip" -o /temp/static.zip \
+    && unzip /temp/static.zip \
+    && rm -f /temp/static.zip \
+    && mv /temp/static-master /static
 
 # add tor and privoxy depending on torless tag
 if [[ ${BUILD_OPT} =~ "torless" ]]
