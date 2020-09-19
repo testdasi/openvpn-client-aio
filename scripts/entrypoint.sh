@@ -55,22 +55,78 @@ else
 fi
 
 ### Infinite loop to stop docker from stopping ###
+sleep_time=10
+crashed=0
 while true
 do
     echo ''
+    echo "[info] Wait $sleep_time seconds before next healthcheck..."
+    sleep $sleep_time
+
     iphiden=$(dig +short myip.opendns.com @208.67.222.222)
     echo "[info] Your VPN public IP is $iphiden"
+    
     pidlist=$(pidof openvpn)
-    echo "[info] OpenVPN PID: $pidlist"
+    if [ -z "$pidlist" ]
+    then
+        echo '[warn] openvpn crashed, restarting'
+        crashed=$(( $crashed + 1 ))
+        source /static/scripts/openvpn.sh
+    else
+        echo "[info] openvpn PID: $pidlist"
+    fi
+    
     pidlist=$(pidof stubby)
-    echo "[info] stubby PID: $pidlist"
+    if [ -z "$pidlist" ]
+    then
+        echo '[warn] stubby crashed, restarting'
+        crashed=$(( $crashed + 1 ))
+        stubby -g -C /root/stubby/stubby.yml
+    else
+        echo "[info] stubby PID: $pidlist"
+    fi
+    
     pidlist=$(pidof danted)
-    echo "[info] danted PID: $pidlist"
+    if [ -z "$pidlist" ]
+    then
+        echo '[warn] danted crashed, restarting'
+        crashed=$(( $crashed + 1 ))
+        danted -D -f /root/dante/danted.conf
+    else
+        echo "[info] danted PID: $pidlist"
+    fi
+    
     pidlist=$(pidof tinyproxy)
-    echo "[info] tinyproxy PID: $pidlist"
-    pidlist=$(pidof tor)
-    echo "[info] tor PID: $pidlist"
-    pidlist=$(pidof privoxy)
-    echo "[info] privoxy PID: $pidlist"
-    sleep 3600s
+    if [ -z "$pidlist" ]
+    then
+        echo '[warn] tinyproxy crashed, restarting'
+        crashed=$(( $crashed + 1 ))
+        tinyproxy -c /root/tinyproxy/tinyproxy.conf
+    else
+        echo "[info] tinyproxy PID: $pidlist"
+    fi
+    
+    ### Run TOR+Privoxy healthcheck depending on build ###
+    if [[ -f "/usr/sbin/tor" ]]; then
+        pidlist=$(pidof tor)
+        if [ -z "$pidlist" ]
+        then
+            echo '[warn] tor crashed, restarting'
+            crashed=$(( $crashed + 1 ))
+            service tor start
+        else
+            echo "[info] tor PID: $pidlist"
+        fi
+        pidlist=$(pidof privoxy)
+        if [ -z "$pidlist" ]
+        then
+            echo '[warn] privoxy crashed, restarting'
+            crashed=$(( $crashed + 1 ))
+            privoxy /etc/privoxy/config
+        else
+            echo "[info] privoxy PID: $pidlist"
+        fi
+    else
+        echo '[info] Torless build detected. Skip torsocks + privoxy healthchecks.'
+    fi    
 done
