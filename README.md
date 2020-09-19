@@ -23,7 +23,7 @@ An "all-in-one" docker for all your private browsing needs. Built for both Unrai
 * OpenVPN config files MUST be named openvpn.ovpn. The certs and credentials can be included in the config file or split into separate files. The flexibility is yours.
 * Explaining the parameters (the values you see in Usage section are default values)
   * DNS_SERVERS: set to 127.2.2.2 will point to stubby (which in turn points to Google / Cloudflare DoT services). Your DNS queries out of the VPN exit will also be encrypted before arriving at Google / Cloudflare for even more privacy. Change it to other comma-separated IPs (e.g. 1.1.1.1,8.8.8.8) will use normal unencrypted DNS, or perhaps a pihole in the local network.
-  * HOST_NETWORK: to enable free flow between host network and the docker (e.g. when using docker bridge network). Otherwise, your proxies will only work from within the docker network. Must be in CIDR format e.g. 192.168.0.1/24
+  * HOST_NETWORK: to enable free flow between host network and the docker (e.g. when using docker bridge network). Otherwise, your proxies will only work from within the docker network. Must be in CIDR format e.g. 192.168.1.0/24
   * DNS_SERVER_PORT: the docker will serve as a DNS server for the local network so everything, including DNS, comes out of the VPN exit.
     * Work best if set to 53 as most things can't handle DNS on other ports. In which case, you have to give the docker its own static IP (i.e. use docker macvlan network) if the host also uses port 53 e.g. if you run a Pihole on the host IP. For Unraid, use Custom : br0 / br1 network (to enable this, go to Settings -> Docker).
     * You will need to set each device DNS to the docker IP.
@@ -42,7 +42,7 @@ An "all-in-one" docker for all your private browsing needs. Built for both Unrai
         --cap-add=NET_ADMIN \
         -v <path for openvpn config>:/etc/openvpn \
         -e DNS_SERVERS=127.2.2.2 \
-        -e HOST_NETWORK=192.168.0.1/24 \
+        -e HOST_NETWORK=192.168.1.0/24 \
         -p 53:53/tcp \
         -p 53:53/udp \
         -p 9118:9118/tcp \
@@ -62,7 +62,7 @@ An "all-in-one" docker for all your private browsing needs. Built for both Unrai
         --cap-add=NET_ADMIN \
         -v '/mnt/user/appdata/openvpn-aio-client':'/etc/openvpn':'rw' \
         -e 'DNS_SERVERS'='127.2.2.2' \
-        -e 'HOST_NETWORK'='192.168.0.1/24' \
+        -e 'HOST_NETWORK'='192.168.1.0/24' \
         -p '8153:53/tcp' \
         -p '8153:53/udp' \
         -p '9118:9118/tcp' \
