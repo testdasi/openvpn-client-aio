@@ -129,4 +129,18 @@ do
     else
         echo '[info] Torless build detected. Skip torsocks + privoxy healthchecks.'
     fi    
+    
+    # reset wait time if something crashed, otherwise double the wait time till next healthcheck
+    if (( $crashed > 0 ))
+    then
+        sleep_time=$(( $crashed * 10 ))
+        crashed=0
+    else
+        sleep_time=$(( $sleep_time * 2 ))
+        # restrict wait time to within 3600s i.e. 1hr
+        if (( $sleep_time > 3600 ))
+        then
+            sleep_time=3600
+        fi
+    fi
 done
