@@ -29,7 +29,6 @@ RUN /bin/bash /install.sh \
 
 VOLUME ["/etc/openvpn"]
 
-#ENTRYPOINT ["/entrypoint.sh"]
 ENTRYPOINT ["tini", "--", "/entrypoint.sh"]
 
 HEALTHCHECK CMD /healthcheck.sh
