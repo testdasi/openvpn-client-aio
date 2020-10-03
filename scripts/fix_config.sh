@@ -4,6 +4,8 @@
 if [[ -f "/usr/sbin/tor" ]]; then
     echo '[info] Tor build detected...'
     sed -i "s|SOCKSPort 0\.0\.0\.0:9050|SOCKSPort 0\.0\.0\.0:$TORSOCKS_PORT|g" '/etc/tor/torrc'
+    sed -i "s|SOCKSPolicy accept 192\.168\.1\.0\/24|SOCKSPolicy accept $HOST_NETWORK|g" '/etc/tor/torrc'
+    
     echo '[info] torsocks fixed.'
     sed -i "s|listen-address 0\.0\.0\.0:8118|listen-address 0\.0\.0\.0:$PRIVOXY_PORT|g" '/etc/privoxy/config'
     sed -i "s|forward-socks5t \/ localhost:9050|forward-socks5t \/ localhost:$TORSOCKS_PORT|g" '/etc/privoxy/config'
