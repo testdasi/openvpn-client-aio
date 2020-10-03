@@ -31,4 +31,6 @@ VOLUME ["/etc/openvpn"]
 
 ENTRYPOINT ["/entrypoint.sh"]
 
+HEALTHCHECK CMD /healthcheck.sh
+
 RUN echo "$(date "+%d.%m.%Y %T") Built from ${FRM} with tag ${TAG}" >> /build_date.info
