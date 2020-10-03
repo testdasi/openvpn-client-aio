@@ -1,15 +1,7 @@
 #!/bin/bash
-crashed=0
 
-pidlist=$(pidof openvpn)
-if [ -z "$pidlist" ]
-then
-    # kill the docker (by killing init script) if openvpn crashes
-    pidentry=$(pgrep entrypoint.sh)
-    kill $pidentry
-    crashed=$(( $crashed + 1 ))
-    exit 1
-fi
+### Autoheal ###
+crashed=0
 
 pidlist=$(pidof stubby)
 if [ -z "$pidlist" ]
@@ -32,7 +24,6 @@ then
     tinyproxy -c /etc/tinyproxy/tinyproxy.conf
 fi
 
-### Run TOR+Privoxy healthcheck depending on build ###
 if [[ -f "/usr/sbin/tor" ]]; then
     pidlist=$(pidof tor)
     if [ -z "$pidlist" ]
@@ -48,9 +39,20 @@ if [[ -f "/usr/sbin/tor" ]]; then
     fi
 fi    
 
-if (( $crashed > 0 ))
+### Critical check ###
+pidlist=$(pidof openvpn)
+if [ -z "$pidlist" ]
 then
+    # kill the docker (by killing init script) if openvpn crashed
+    pidentry=$(pgrep entrypoint.sh)
+    kill $pidentry
     exit 1
 else
-    exit 0
+    # return exit code for healthcheck
+    if (( $crashed > 0 ))
+    then
+        exit 1
+    else
+        exit 0
+    fi
 fi
