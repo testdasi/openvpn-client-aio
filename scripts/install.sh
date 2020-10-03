@@ -19,7 +19,6 @@ else
     # install torsocks and privoxy
     apt-get -y update \
     && apt-get -y install torsocks privoxy \
-    && apt-get -y install tini \
     && mkdir -p /etc/tor \
     && rm -rf /etc/tor/* \
     && mkdir -p /etc/privoxy \
