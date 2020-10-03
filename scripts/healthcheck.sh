@@ -46,4 +46,9 @@ if [[ -f "/usr/sbin/tor" ]]; then
     fi
 fi    
 
-exit $crashed
+if (( $crashed > 0 ))
+then
+    exit 1
+else
+    exit 0
+fi
