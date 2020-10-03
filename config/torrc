@@ -2,7 +2,8 @@ SOCKSPort 0.0.0.0:9050
 ExitPolicy reject *:*
 BridgeRelay 0
 
-SOCKSPolicy accept 127.0.0.0/24
-SOCKSPolicy accept 192.168.1.0/24
+SOCKSPolicy accept 10.0.0.0/8
+SOCKSPolicy accept 172.16.0.0/12
+SOCKSPolicy accept 192.168.0.0/16
+SOCKSPolicy accept 127.0.0.0/8
 SOCKSPolicy reject *
-
