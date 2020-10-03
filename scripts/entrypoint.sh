@@ -58,8 +58,7 @@ then
         echo '[info] Torless build detected. Skip running torsocks + privoxy configs.'
     fi
     
-    pidovpn=$(pidof openvpn)
-    wait $pidovpn
+    wait -n
 
     ### Infinite loop to stop docker from stopping ###
 #    sleep_time=3600
