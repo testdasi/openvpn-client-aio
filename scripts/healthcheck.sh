@@ -5,8 +5,8 @@ pidlist=$(pidof openvpn)
 if [ -z "$pidlist" ]
 then
     # kill the docker (by killing init script) if openvpn crashes
-    pidbash=$(pidof bash)
-    kill $pidbash
+    pidentry=$(pgrep entrypoint.sh)
+    kill $pidentry
     crashed=$(( $crashed + 1 ))
     exit 1
 fi
