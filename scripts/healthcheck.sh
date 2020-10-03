@@ -2,13 +2,6 @@
 
 crashed=0
 
-pidlist=$(pidof openvpn)
-if [ -z "$pidlist" ]
-then
-    crashed=$(( $crashed + 1 ))
-    source /static/scripts/openvpn.sh
-fi
-
 pidlist=$(pidof stubby)
 if [ -z "$pidlist" ]
 then
