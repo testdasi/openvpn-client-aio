@@ -1,7 +1,5 @@
 #!/bin/bash
 
-set -e
-
 ### Only run process if ovpn found ###
 if [[ -f "/etc/openvpn/openvpn.ovpn" ]]
 then
