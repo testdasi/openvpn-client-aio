@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 ### Only run process if ovpn found ###
 if [[ -f "/etc/openvpn/openvpn.ovpn" ]]
 then
@@ -57,20 +59,23 @@ then
         echo ''
         echo '[info] Torless build detected. Skip running torsocks + privoxy configs.'
     fi
+    
+    pidovpn=$(pidof openvpn)
+    wait $pidovpn
 
     ### Infinite loop to stop docker from stopping ###
-    sleep_time=3600
+#    sleep_time=3600
 #    crashed=0
-    while true
-    do
-        echo ''
-        echo "[info] Wait $sleep_time seconds before next healthcheck..."
-        sleep $sleep_time
+#    while true
+#    do
+#        echo ''
+#        echo "[info] Wait $sleep_time seconds before next healthcheck..."
+#        sleep $sleep_time
 
-        iphiden=$(dig +short myip.opendns.com @208.67.222.222)
-        echo "[info] Your VPN public IP is $iphiden"
-
-    done
+#        iphiden=$(dig +short myip.opendns.com @208.67.222.222)
+#        echo "[info] Your VPN public IP is $iphiden"
+#
+#    done
 else
     echo '[CRITICAL] Config file not found, quitting...'
 fi
