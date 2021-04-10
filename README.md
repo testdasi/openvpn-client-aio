@@ -1,10 +1,10 @@
 # openvpn-client-aio
-An "all-in-one" docker for all your private browsing needs. Built for both Unraid and Raspberry Pi 4 but should work in other Linux amd64 / arm32v7 docker environments.
+An "all-in-one" docker for all your private browsing needs. Built for both Unraid and Raspberry Pi 4 but should work in other Linux amd64 / arm32v7 / arm32v6 / i386 docker environments.
 
 ## PULL THE RIGHT TAG!
-* For linux/amd64 (e.g. Unraid) -> pull testdasi/openvpn-client-aio:stable-amd64
-* For linux/arm/v7 (e.g. Raspberry Pi4) -> pull testdasi/openvpn-client-aio:stable-rpi4 
-* For versions without TOR (and Privoxy) -> pull testdasi/openvpn-client-aio:stable-torless-amd64 / testdasi/openvpn-client-aio:stable-torless-rpi4
+* I have finally managed to get multi-arch buildx working. LOL. Docker should automatically determine the right architecture to pull.
+  * For verison with TOR (and Privoxy) -> pull testdasi/openvpn-client-aio:latest
+  * For version without TOR (and Privoxy) -> pull testdasi/openvpn-client-aio:latest-torless
 
 ## High-level instructions
 * Copy your OpenVPN configuration to the host path that is mapped to */etc/openvpn* (must include openvpn.ovpn + credentials + certs).
@@ -54,7 +54,7 @@ An "all-in-one" docker for all your private browsing needs. Built for both Unrai
         -e HTTP_PROXY_PORT=8118 \
         -e TOR_SOCKS_PORT=9119 \
         -e TOR_HTTP_PORT=8119 \
-        testdasi/openvpn-client-aio-arm:<tag>
+        testdasi/openvpn-client-aio:<tag>
 
 ## Unraid example
     docker run -d \
@@ -77,7 +77,7 @@ An "all-in-one" docker for all your private browsing needs. Built for both Unrai
         --net='bridge' \
         -e TZ="Europe/London" \
         -e HOST_OS="Unraid" \
-        'testdasi/openvpn-client-aio:stable-amd64' 
+        'testdasi/openvpn-client-aio:latest' 
 
 ## Notes
 * I code for fun and my personal uses; hence, these niche functionalties that nobody asks for. ;)
