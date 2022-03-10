@@ -47,5 +47,5 @@ RUN rm -Rf /testdasi
 
 ## VEH ##
 VOLUME ["/config"]
-ENTRYPOINT ["tini", "--", "/static-ubuntu/scripts-openvpn/entrypoint.sh"]
-HEALTHCHECK CMD /static-ubuntu/scripts-openvpn/healthcheck.sh
+ENTRYPOINT ["tini", "--", "/static-ubuntu/openvpn-client/entrypoint.sh"]
+HEALTHCHECK CMD /static-ubuntu/openvpn-client/healthcheck.sh
